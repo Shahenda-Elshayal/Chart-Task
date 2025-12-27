@@ -8,6 +8,7 @@ import UnitModelChart from "./components/UnitModelChart";
 import ContractPaymentPlanChart from "./components/ContractPaymentPlanChart";
 import QuarterlySalesTrendChart from "./components/QuarterlySalesTrendChart";
 import UnitPriceBoxPlot from "./components/UnitPriceBoxPlot";
+import PivotTable from "./components/PivotTable";
 import FocusModal from "./components/FocusModal";
 
 function App() {
@@ -140,6 +141,15 @@ function App() {
             isFocusMode={false}
           />
         </div>
+
+        {/* Pivot Table */}
+        <div className="grid grid-cols-1 gap-6 md:mb-6 mb-4">
+          <PivotTable
+            data={filteredData}
+            onFocusClick={() => handleFocusChart("pivotTable")}
+            isFocusMode={false}
+          />
+        </div>
       </div>
 
       {/* Focus Modal */}
@@ -157,6 +167,8 @@ function App() {
             ? "Quarterly Sales Trend"
             : focusedChart === "priceBoxPlot"
             ? "Unit Metrics Overview"
+            : focusedChart === "pivotTable"
+            ? "Inventory Pivot Table"
             : ""
         }
       >
@@ -185,6 +197,9 @@ function App() {
         )}
         {focusedChart === "priceBoxPlot" && (
           <UnitPriceBoxPlot data={filteredData} isFocusMode={true} />
+        )}
+        {focusedChart === "pivotTable" && (
+          <PivotTable data={filteredData} isFocusMode={true} />
         )}
       </FocusModal>
     </div>
